@@ -1,0 +1,18 @@
+# Local deployment values
+**/main.parameters.json
+**/terraform.tfvars
+**/*.tfvars
+!**/terraform.tfvars.example
+
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/crash.log
+**/override.tf
+**/override.tf.json
+**/*_override.tf
+**/*_override.tf.json
+
+# Bicep build output
+**/main.json
