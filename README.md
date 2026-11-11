@@ -11,13 +11,17 @@ Practice Azure AZ-104 labs as infrastructure as code. Portal exercises get a
 Bicep and/or Terraform version so you can redeploy the same layout without
 clicking through the UI again.
 
-## What this repo contains
+## Layout
 
-| Path | What it is |
-|---|---|
-| `AZ104/Lab04/GPs/bicep/` | Guided project: hub-and-spoke VNets, subnets, peering |
-| `AZ104/Lab04/GPs/terraform/` | Same Lab04 guided project in Terraform |
-| `AZ104/Lab07/bicep/` | Lab07 storage / network / backup modules |
+```text
+AZ104/
+  LabXX/
+    bicep/        # Bicep templates (+ *.parameters.example.json)
+    terraform/    # Terraform configs (+ terraform.tfvars.example)
+    GPs/          # Guided projects (same bicep/ / terraform/ split)
+```
+
+Each lab folder is self-contained. Open it, copy the example params, deploy.
 
 Local values stay out of git (`main.parameters.json`, `terraform.tfvars`). Copy the
 committed `*.example` files and fill them in.
@@ -37,22 +41,24 @@ az login
 az account set --subscription "<name-or-id>"
 ```
 
-**Bicep (Lab04 guided project):**
+**Bicep** (from a lab’s `bicep/` folder):
 
 ```bash
-cp AZ104/Lab04/GPs/bicep/main.parameters.example.json AZ104/Lab04/GPs/bicep/main.parameters.json
-# edit location / resourceGroupName if needed
+cp main.parameters.example.json main.parameters.json
+# edit values as needed
 
 az deployment sub create \
-  --location southafricanorth \
-  --template-file AZ104/Lab04/GPs/bicep/main.bicep \
-  --parameters @AZ104/Lab04/GPs/bicep/main.parameters.json
+  --location <deployment-record-region> \
+  --template-file main.bicep \
+  --parameters @main.parameters.json
 ```
 
-**Terraform (same lab):**
+Some labs deploy at resource-group scope instead — check that lab’s `main.bicep`
+`targetScope` and use `az deployment group create` when it says so.
+
+**Terraform** (from a lab’s `terraform/` folder):
 
 ```bash
-cd AZ104/Lab04/GPs/terraform
 cp terraform.tfvars.example terraform.tfvars
 terraform init
 terraform plan
