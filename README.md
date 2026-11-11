@@ -8,7 +8,7 @@
 [![AZ-104](https://img.shields.io/badge/AZ--104-Labs-0078D4)](#)
 
 Practice Azure AZ-104 labs as infrastructure as code. Portal exercises get a
-Bicep and/or Terraform version so you can redeploy the same layout without
+Bicep and/or Terraform version to allow easy redeployment without
 clicking through the UI again.
 
 ## Layout
@@ -53,7 +53,7 @@ az deployment sub create \
   --parameters @main.parameters.json
 ```
 
-Some labs deploy at resource-group scope instead — check that lab’s `main.bicep`
+Some labs deploy at resource-group scope instead, check that lab’s `main.bicep`
 `targetScope` and use `az deployment group create` when it says so.
 
 **Terraform** (from a lab’s `terraform/` folder):
