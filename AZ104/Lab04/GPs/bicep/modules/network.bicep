@@ -1,6 +1,5 @@
 param location string
 
-// Spoke: application virtual network (frontend + backend)
 resource appVnet 'Microsoft.Network/virtualNetworks@2024-05-01' = {
   name: 'app-vnet'
   location: location
@@ -31,7 +30,6 @@ resource appVnet 'Microsoft.Network/virtualNetworks@2024-05-01' = {
   }
 }
 
-// Hub: firewall virtual network
 resource hubVnet 'Microsoft.Network/virtualNetworks@2024-05-01' = {
   name: 'hub-vnet'
   location: location
@@ -43,7 +41,6 @@ resource hubVnet 'Microsoft.Network/virtualNetworks@2024-05-01' = {
     }
     subnets: [
       {
-        // Required exact name for Azure Firewall
         name: 'AzureFirewallSubnet'
         properties: {
           addressPrefixes: [
@@ -55,9 +52,6 @@ resource hubVnet 'Microsoft.Network/virtualNetworks@2024-05-01' = {
   }
 }
 
-// Peering names match the lab portal form when creating from app-vnet:
-// Local (on app-vnet) = hub-to-app-vnet
-// Remote (on hub-vnet) = app-vnet-to-hub
 resource appToHub 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2024-05-01' = {
   parent: appVnet
   name: 'hub-to-app-vnet'
